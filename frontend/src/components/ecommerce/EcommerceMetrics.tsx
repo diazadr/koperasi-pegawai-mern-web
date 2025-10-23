@@ -4,7 +4,6 @@ import {
   BoxIconLine,
   GroupIcon,
 } from "../../icons";
-import Badge from "../ui/badge/Badge";
 
 type Props = {
   data?: any;

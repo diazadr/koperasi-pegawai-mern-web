@@ -70,15 +70,15 @@ export default function PrediksiBarangTerlarisBulan({ data, periode }: Props) {
 
             <TableBody className="divide-y divide-gray-100 dark:divide-gray-800">
               {list.map((item, index) => (
-  <TableRow key={index}>
-    <TableCell className="py-3 text-gray-800 text-theme-sm dark:text-white/90">
-      {item.nama_item || item._id}
-    </TableCell>
-    <TableCell className="py-3 text-brand-600 font-semibold text-theme-sm">
-      {Number(item.prediksi_jumlah ?? 0).toLocaleString("id-ID")}
-    </TableCell>
-  </TableRow>
-))}
+                <TableRow key={index}>
+                  <TableCell className="py-3 text-gray-800 text-theme-sm dark:text-white/90">
+                    {item.nama_item || item._id}
+                  </TableCell>
+                  <TableCell className="py-3 text-brand-600 font-semibold text-theme-sm">
+                    {Number(item.prediksi_jumlah ?? 0).toLocaleString("id-ID")}
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </div>

@@ -19,7 +19,7 @@ export default function MonthlyTarget({ data }: Props) {
   }
 
   // Data dari backend
-  const { totalPembelian, totalPenjualan, totalRetur, labaRugi, periode } = data;
+  const {totalPenjualan, labaRugi, periode } = data;
 
   // Tentukan target otomatis (misal 10% lebih tinggi dari penjualan saat ini)
   const target = totalPenjualan * 1.1; // 10% growth target
