@@ -1,6 +1,6 @@
 # Big Data-Based Employee Cooperative Analysis Website
 
-![Project Status](https://img.shields.io/badge/status-completed-brightgreen) [![License](https://img.shields.io/badge/license-MIT-blue)](./LICENSE) [![Certificate](https://img.shields.io/badge/Certificate-Available-blue)](https://github.com/user-attachments/files/18723289/Sertifikat_2.pdf)
+![Project Status](https://img.shields.io/badge/status-completed-brightgreen) [![License](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
 
 An advanced web-based analytical system for managing and analyzing cooperative (koperasi) transactions using **Big Data** and the **MERN Stack**. This project aims to streamline data upload, analysis, prediction, and reporting for employee cooperatives.
 
@@ -20,15 +20,15 @@ The system is built using the **MERN Stack** architecture:
 
 1. **Dark Mode**
 
-<img src="https://github.com/user-attachments/assets/41041879-0bcc-4f51-a8f2-ef415cc1d160" alt="Dark Mode Screenshot 1" style="width: 600px; height: auto;">
+   <img src="https://github.com/user-attachments/assets/41041879-0bcc-4f51-a8f2-ef415cc1d160" alt="Dark Mode Screenshot 1" style="width: 600px; height: auto;">
 
-<img src="https://github.com/user-attachments/assets/6718c1a4-721e-4ea1-8927-e4921da18dd7" alt="Dark Mode Screenshot 2" style="width: 600px; height: auto;">
+   <img src="https://github.com/user-attachments/assets/6718c1a4-721e-4ea1-8927-e4921da18dd7" alt="Dark Mode Screenshot 2" style="width: 600px; height: auto;">
 
 2. **Light Mode**
 
-<img src="https://github.com/user-attachments/assets/251ca4d9-0bcd-45be-96ce-e2f76d0e27f7" alt="Light Mode Screenshot 1" style="width: 600px; height: auto;">
+   <img src="https://github.com/user-attachments/assets/251ca4d9-0bcd-45be-96ce-e2f76d0e27f7" alt="Light Mode Screenshot 1" style="width: 600px; height: auto;">
 
-<img src="https://github.com/user-attachments/assets/70e0630f-350c-4cd2-bcd3-5b2dce487f27" alt="Light Mode Screenshot 2" style="width: 600px; height: auto;">
+   <img src="https://github.com/user-attachments/assets/70e0630f-350c-4cd2-bcd3-5b2dce487f27" alt="Light Mode Screenshot 2" style="width: 600px; height: auto;">
 
 ---
 
@@ -78,7 +78,7 @@ Main analytics handled by `getDashboardSummary()` function, displaying:
 
   <img src="https://github.com/user-attachments/assets/b347d07f-e04d-4215-8f87-4f63f7ce356f" alt="Monthly Trend Chart 1" style="width: 600px; height: auto;">
 
-<img src="https://github.com/user-attachments/assets/e5c3a850-19aa-4b47-884f-d717bb5ee0c3" alt="Monthly Trend Chart 2" style="width: 600px; height: auto;">
+  <img src="https://github.com/user-attachments/assets/e5c3a850-19aa-4b47-884f-d717bb5ee0c3" alt="Monthly Trend Chart 2" style="width: 600px; height: auto;">
 
 * **Top-Selling Products** by quantity and total value.
 
@@ -88,7 +88,7 @@ Main analytics handled by `getDashboardSummary()` function, displaying:
 
   <img src="https://github.com/user-attachments/assets/0baa2721-fa3e-48db-baa2-4e0dc1f62121" alt="Next Year Prediction 1" style="width: 600px; height: auto;">
 
-<img src="https://github.com/user-attachments/assets/0a73ba06-d5c4-4080-9753-40ddac2778cb" alt="Next Year Prediction 2" style="width: 600px; height: auto;">
+  <img src="https://github.com/user-attachments/assets/0a73ba06-d5c4-4080-9753-40ddac2778cb" alt="Next Year Prediction 2" style="width: 600px; height: auto;">
 
 ---
 
@@ -126,8 +126,7 @@ The `exportDashboardExcel()` function enables the export of analysis reports to 
 * **Sales and Purchase Trends**.
 * **Predicted Profits and Sales** for the next year.
 
-The exported file includes styled headers and organized sheets for easy interpretation. 
-  <img src="https://github.com/user-attachments/assets/f6a8753b-21b0-4983-8351-2137728b528f" alt="Excel Export" style="width: 600px; height: auto;">
+The exported file includes styled headers and organized sheets for easy interpretation. <img src="https://github.com/user-attachments/assets/f6a8753b-21b0-4983-8351-2137728b528f" alt="Excel Export" style="width: 600px; height: auto;">
 
 ---
 
