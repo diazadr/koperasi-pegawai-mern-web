@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import EcommerceMetrics from "../../components/ecommerce/EcommerceMetrics";
 import MonthlySalesChart from "../../components/ecommerce/MonthlySalesChart";
 import StatisticsChart from "../../components/ecommerce/StatisticsChart";
@@ -16,7 +16,11 @@ import PrediksiBarangTerlarisTahunan from "../../components/ecommerce/Prediction
 const monthOptions = [
   "Januari", "Februari", "Maret", "April", "Mei", "Juni",
   "Juli", "Agustus", "September", "Oktober", "November", "Desember"
-].map((m, i) => ({ value: i + 1, label: m }));
+].map((m, i) => ({
+  value: (i + 1).toString().padStart(2, "0"),
+  label: m,
+}));
+
 
 export default function Home() {
   const [bulan, setBulan] = useState<number | string>(new Date().getMonth() + 1);
@@ -59,8 +63,7 @@ export default function Home() {
         title="Dashboard Koperasi Digital"
         description="Analisis dan ringkasan operasional koperasi"
       />
-
-      {/* 🔍 Filter Periode Analisis */}
+      
       <ComponentCard title="Filter Periode Analisis">
         <div className="flex flex-wrap gap-4 items-end">
           <div>
@@ -84,7 +87,6 @@ export default function Home() {
             />
           </div>
 
-          {/* 🔹 Tombol tampilkan analisis */}
           <button
             onClick={handleFilter}
             disabled={loading}
@@ -93,7 +95,6 @@ export default function Home() {
             {loading ? "Memuat..." : "Tampilkan Analisis"}
           </button>
 
-          {/* 🔹 Tombol ekspor Excel */}
           <button
             onClick={handleExportExcel}
             className="px-5 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition"
@@ -114,7 +115,6 @@ export default function Home() {
         </div>
       )}
 
-      {/* 🧩 Dashboard utama */}
       <div className="grid grid-cols-12 gap-4 md:gap-6 mt-6">
         <div className="col-span-12">
           <EcommerceMetrics data={dashboardData} />

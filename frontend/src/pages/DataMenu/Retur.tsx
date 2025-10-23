@@ -7,7 +7,6 @@ import Select from "../../components/form/Select";
 import Input from "../../components/form/input/InputField";
 import Alert from "../../components/ui/alert/Alert";
 
-// ✅ Pakai label nama bulan (bukan angka)
 const monthOptions = [
   "Januari","Februari","Maret","April","Mei","Juni",
   "Juli","Agustus","September","Oktober","November","Desember"
@@ -22,12 +21,22 @@ const sortOptions = [
   { value: "harga_asc", label: "Harga Terendah" },
 ];
 
+interface ReturItem {
+  kode_item: string;
+  nama_item: string;
+  jumlah: number;
+  satuan: string;
+  harga_satuan: number;
+  potongan: number;
+  total_harga: number;
+}
+
 export default function Retur() {
   const [bulan, setBulan] = useState("");
   const [tahun, setTahun] = useState("");
   const [sortBy, setSortBy] = useState("");
-  const [data, setData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
+  const [data, setData] = useState<ReturItem[]>([]);
+  const [filteredData, setFilteredData] = useState<ReturItem[]>([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -42,7 +51,6 @@ export default function Retur() {
     currentPage * itemsPerPage
   );
 
-  // 🔄 Fetch data retur
   const handleFetch = async () => {
     if (!bulan || !tahun) {
       setError("Pilih bulan dan isi tahun terlebih dahulu!");

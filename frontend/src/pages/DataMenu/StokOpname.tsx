@@ -7,6 +7,18 @@ import Select from "../../components/form/Select";
 import Input from "../../components/form/input/InputField";
 import Alert from "../../components/ui/alert/Alert";
 
+
+interface StokOpnameItem {
+  kode_item: string;
+  nama_item: string;
+  qty_fisik: number;
+  qty_sistem: number;
+  selisih: number;
+  satuan: string;
+  periode: string;
+}
+
+
 const monthOptions = [
   "Januari", "Februari", "Maret", "April", "Mei", "Juni",
   "Juli", "Agustus", "September", "Oktober", "November", "Desember"
@@ -26,8 +38,8 @@ export default function StokOpname() {
   const [bulan, setBulan] = useState("");
   const [tahun, setTahun] = useState("");
   const [sortBy, setSortBy] = useState("");
-  const [data, setData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
+  const [data, setData] = useState<StokOpnameItem[]>([]);
+  const [filteredData, setFilteredData] = useState<StokOpnameItem[]>([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");

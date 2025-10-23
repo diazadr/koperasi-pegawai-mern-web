@@ -4,11 +4,28 @@ import PageMeta from "../../components/common/PageMeta";
 import ComponentCard from "../../components/common/ComponentCard";
 import Label from "../../components/form/Label";
 import Select from "../../components/form/Select";
-import Input from "../../components/form/input/InputField";
 import Alert from "../../components/ui/alert/Alert";
 import { Modal } from "../../components/ui/modal";
-import Button from "../../components/ui/button/Button";
 import { useModal } from "../../hooks/useModal";
+
+import OriginalInput from "../../components/form/input/InputField";
+import OriginalButton from "../../components/ui/button/Button";
+import type { InputHTMLAttributes, ButtonHTMLAttributes } from "react";
+const Input = OriginalInput as React.FC<InputHTMLAttributes<HTMLInputElement>>;
+const Button = OriginalButton as React.FC<
+  ButtonHTMLAttributes<HTMLButtonElement> & { variant?: string }
+>;
+
+
+export interface InputProps {
+  type?: string;
+  name?: string;
+  value?: string | number;
+  placeholder?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  className?: string;
+  required?: boolean;
+}
 
 const monthOptions = [
   "Januari","Februari","Maret","April","Mei","Juni",

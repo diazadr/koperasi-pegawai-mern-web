@@ -4,11 +4,17 @@ import PageMeta from "../../components/common/PageMeta";
 import ComponentCard from "../../components/common/ComponentCard";
 import Label from "../../components/form/Label";
 import Select from "../../components/form/Select";
-import Input from "../../components/form/input/InputField";
 import Alert from "../../components/ui/alert/Alert";
 import { Modal } from "../../components/ui/modal";
-import Button from "../../components/ui/button/Button";
 import { useModal } from "../../hooks/useModal";
+import OriginalInput from "../../components/form/input/InputField";
+import OriginalButton from "../../components/ui/button/Button";
+import type { InputHTMLAttributes, ButtonHTMLAttributes } from "react";
+const Input = OriginalInput as React.FC<InputHTMLAttributes<HTMLInputElement>>;
+const Button = OriginalButton as React.FC<
+  ButtonHTMLAttributes<HTMLButtonElement> & { variant?: string }
+>;
+
 
 const monthOptions = [
   "Januari", "Februari", "Maret", "April", "Mei", "Juni",
@@ -57,7 +63,6 @@ export default function Penjualan() {
   });
   const [saving, setSaving] = useState(false);
 
-  // 🔄 Fetch data penjualan
   const handleFetch = async () => {
     if (!bulan || !tahun) {
       setError("Pilih bulan dan isi tahun terlebih dahulu!");
@@ -79,7 +84,6 @@ export default function Penjualan() {
     }
   };
 
-  // 🔽 Sorting
   useEffect(() => {
     let sorted = [...data];
     switch (sortBy) {
@@ -94,7 +98,6 @@ export default function Penjualan() {
     setCurrentPage(1);
   }, [sortBy, data]);
 
-  // 🔍 Pencarian
   useEffect(() => {
     const q = search.toLowerCase();
     setFilteredData(
@@ -108,7 +111,6 @@ export default function Penjualan() {
     setCurrentPage(1);
   }, [search, data]);
 
-  // 🗑️ Delete per Periode
   const handleDeletePeriode = async () => {
     if (!bulan || !tahun) {
       alert("Isi bulan dan tahun terlebih dahulu!");
@@ -128,7 +130,6 @@ export default function Penjualan() {
     }
   };
 
-  // 💾 Simpan data manual
   const handleChange = (e: any) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -202,7 +203,6 @@ export default function Penjualan() {
             Hapus Periode
           </button>
 
-          {/* Tombol Tambah Data Manual */}
           <Button onClick={openModal} className="bg-green-600 hover:bg-green-700 text-white">
             + Tambah Data Manual
           </Button>
@@ -233,7 +233,6 @@ export default function Penjualan() {
             ]}
           />
 
-          {/* 📄 Pagination */}
           {filteredData.length > 0 && (
             <div className="flex justify-center mt-4 gap-2">
               <button onClick={() => setCurrentPage((p)=>Math.max(p-1,1))} disabled={currentPage===1}
@@ -252,7 +251,6 @@ export default function Penjualan() {
         </div>
       )}
 
-      {/* 🟩 Modal Input Manual */}
       <Modal isOpen={isOpen} onClose={closeModal} className="max-w-[600px]">
         <div className="p-6">
           <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">

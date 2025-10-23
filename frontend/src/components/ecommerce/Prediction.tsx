@@ -8,8 +8,9 @@ import {
 import Alert from "../ui/alert/Alert";
 
 interface PrediksiBarang {
+   _id?: string;
   nama_item: string;
-  prediksi: number;
+  prediksi_jumlah?: number;
 }
 
 interface Props {
