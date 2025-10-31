@@ -63,7 +63,7 @@ export default function Home() {
         title="Dashboard Koperasi Digital"
         description="Analisis dan ringkasan operasional koperasi"
       />
-      
+
       <ComponentCard title="Filter Periode Analisis">
         <div className="flex flex-wrap gap-4 items-end">
           <div>

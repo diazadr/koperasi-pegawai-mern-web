@@ -190,11 +190,11 @@ export default function Penjualan() {
           </div>
           <div>
             <Label>Tahun</Label>
-            <Input type="number" placeholder="2025" value={tahun} onChange={(e)=>setTahun(e.target.value)} className="w-28"/>
+            <Input type="number" placeholder="2025" value={tahun} onChange={(e) => setTahun(e.target.value)} className="w-28" />
           </div>
           <div>
             <Label>Urutkan</Label>
-            <Select options={sortOptions} placeholder="Pilih Urutan" onChange={setSortBy} className="w-48"/>
+            <Select options={sortOptions} placeholder="Pilih Urutan" onChange={setSortBy} className="w-48" />
           </div>
           <button onClick={handleFetch} disabled={loading} className="px-5 py-2 rounded-lg bg-brand-500 text-white hover:bg-brand-600 transition disabled:opacity-50">
             {loading ? "Memuat..." : "Tampilkan Data"}
@@ -235,14 +235,14 @@ export default function Penjualan() {
 
           {filteredData.length > 0 && (
             <div className="flex justify-center mt-4 gap-2">
-              <button onClick={() => setCurrentPage((p)=>Math.max(p-1,1))} disabled={currentPage===1}
+              <button onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))} disabled={currentPage === 1}
                 className="px-3 py-1 border rounded bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white disabled:opacity-50">
                 ← Prev
               </button>
               <span className="px-3 py-1 text-sm text-gray-700 dark:text-gray-300">
                 Halaman {currentPage} dari {totalPages}
               </span>
-              <button onClick={() => setCurrentPage((p)=>Math.min(p+1,totalPages))} disabled={currentPage===totalPages}
+              <button onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))} disabled={currentPage === totalPages}
                 className="px-3 py-1 border rounded bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white disabled:opacity-50">
                 Next →
               </button>
