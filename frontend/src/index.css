@@ -3,6 +3,18 @@ layer(base);
 
 @import "tailwindcss";
 
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.5s ease;
+}
+
+.reveal.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
 @custom-variant dark (&:is(.dark *));
 
 @theme {

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation } from "react-router-dom";
 
 // Assume these icons are imported from an icon library
 import {
@@ -24,7 +24,7 @@ const navItems: NavItem[] = [
     icon: <GridIcon />,
     name: "Beranda",
     subItems: [
-      { name: "Analisis Perbulan", path: "/", pro: false },
+      { name: "Analisis Perbulan", path: "/dashboard", pro: false },
     ],
   },
   {

@@ -97,17 +97,17 @@ export default function UserAddressCard() {
               <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
                 <div>
                   <Label>Negara</Label>
-                  <Input type="text" value="Amerika Serikat" />
+                  <Input type="text" value="Indonesia" />
                 </div>
 
                 <div>
                   <Label>Kota/Provinsi</Label>
-                  <Input type="text" value="Arizona, Amerika Serikat." />
+                  <Input type="text" value="Bandung, Jawa Barat." />
                 </div>
 
                 <div>
                   <Label>Kode Pos</Label>
-                  <Input type="text" value="ERT 2489" />
+                  <Input type="text" value="40134" />
                 </div>
 
                 <div>

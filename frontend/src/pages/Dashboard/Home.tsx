@@ -115,46 +115,50 @@ export default function Home() {
         </div>
       )}
 
-      <div className="grid grid-cols-12 gap-4 md:gap-6 mt-6">
-        <div className="col-span-12">
-          <EcommerceMetrics data={dashboardData} />
-        </div>
+    {dashboardData && (
+  <div className="grid grid-cols-12 gap-4 md:gap-6 mt-6">
 
-        <div className="col-span-12">
-          <MonthlySalesChart data={dashboardData} />
-        </div>
+    <div className="col-span-12">
+      <EcommerceMetrics data={dashboardData} />
+    </div>
 
-        <div className="col-span-12">
-          <MonthlyTarget data={dashboardData} />
-        </div>
+    <div className="col-span-12">
+      <MonthlySalesChart data={dashboardData} />
+    </div>
 
-        <div className="col-span-12">
-          <StatisticsChart data={dashboardData} />
-        </div>
+    <div className="col-span-12">
+      <MonthlyTarget data={dashboardData} />
+    </div>
 
-        <div className="col-span-12">
-          <RecentOrders data={dashboardData} />
-        </div>
+    <div className="col-span-12">
+      <StatisticsChart data={dashboardData} />
+    </div>
 
-        {dashboardData?.prediksi?.bulanBerikutnya?.length > 0 && (
-          <div className="col-span-12">
-            <PrediksiBarangTerlarisBulan
-              data={dashboardData}
-              periode={`${monthOptions[+bulan - 1].label} ${tahun}`}
-            />
-          </div>
-        )}
+    <div className="col-span-12">
+      <RecentOrders data={dashboardData} />
+    </div>
 
-        {dashboardData?.prediksi && (
-          <div className="col-span-12">
-            <PrediksiBarangTerlarisTahunan
-              data={dashboardData.prediksi}
-              periode={`${monthOptions[+bulan - 1].label} ${tahun}`}
-            />
-          </div>
-        )}
-
+    {dashboardData?.prediksi?.bulanBerikutnya?.length > 0 && (
+      <div className="col-span-12">
+        <PrediksiBarangTerlarisBulan
+          data={dashboardData}
+          periode={`${monthOptions[+bulan - 1].label} ${tahun}`}
+        />
       </div>
+    )}
+
+    {dashboardData?.prediksi && (
+      <div className="col-span-12">
+        <PrediksiBarangTerlarisTahunan
+          data={dashboardData.prediksi}
+          periode={`${monthOptions[+bulan - 1].label} ${tahun}`}
+        />
+      </div>
+    )}
+
+  </div>
+)}
+
     </>
   );
 }

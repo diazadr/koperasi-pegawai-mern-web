@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NotFound from "./pages/OtherPage/NotFound";
 import UserProfiles from "./pages/UserProfiles";
 import AppLayout from "./layout/AppLayout";
@@ -12,34 +12,32 @@ import Retur from "./pages/DataMenu/Retur";
 import UploadBulanan from "./pages/DataPeriode/UploadBulanan";
 import PeriodeList from "./pages/DataPeriode/Periode";
 import StokOpname from "./pages/DataMenu/StokOpname";
+import LandingPage from "./pages/LandingPage";
 
 export default function App() {
   return (
-    <>
-      <Router>
-        <ScrollToTop />
-        <Routes>
-          <Route element={<AppLayout />}>
-            <Route index path="/" element={<Home />} />
+    <Router>
+      <ScrollToTop />
+      <Routes>
+        {/* Halaman landing di root */}
+        <Route index path="/" element={<LandingPage />} />
 
-            <Route path="/data/pembelian" element={<Pembelian />} />
-            <Route path="/data/penjualan" element={<Penjualan />} />
-            <Route path="/data/retur" element={<Retur />} />
-            <Route path="/data/stokopname" element={<StokOpname />} />
+        {/* Halaman admin */}
+        <Route element={<AppLayout />}>
+          <Route path="/dashboard" element={<Home />} />
+          <Route path="/data/pembelian" element={<Pembelian />} />
+          <Route path="/data/penjualan" element={<Penjualan />} />
+          <Route path="/data/retur" element={<Retur />} />
+          <Route path="/data/stokopname" element={<StokOpname />} />
 
-            <Route path="/upload/bulanan" element={<UploadBulanan />} />
-             <Route path="/upload/periode" element={<PeriodeList />} />
+          <Route path="/upload/bulanan" element={<UploadBulanan />} />
+          <Route path="/upload/periode" element={<PeriodeList />} />
+          <Route path="/profile" element={<UserProfiles />} />
+        </Route>
 
-            {/* Others Page */}
-            <Route path="/profile" element={<UserProfiles />} />
-            \\
-
-          </Route>
-
-          {/* Fallback Route */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Router>
-    </>
+        {/* Not Found */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Router>
   );
 }

@@ -25,7 +25,7 @@ export default function UserInfoCard() {
                 Nama Depan
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                Diaz
+                Admin
               </p>
             </div>
 
@@ -34,7 +34,7 @@ export default function UserInfoCard() {
                 Nama Belakang
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                Adriansyah
+                Kopeg
               </p>
             </div>
 
@@ -43,7 +43,7 @@ export default function UserInfoCard() {
                 Alamat Email
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                diazadr.dev@gmail.com
+                adminkopeg@gmail.com
               </p>
             </div>
 
@@ -61,7 +61,7 @@ export default function UserInfoCard() {
                 Jabatan
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                Kasir
+                Administrator
               </p>
             </div>
           </div>
@@ -112,26 +112,26 @@ export default function UserInfoCard() {
                     <Label>Facebook</Label>
                     <Input
                       type="text"
-                      value="https://www.facebook.com/PimjoHQ"
+                      value="https://www.facebook.com/Kopeg"
                     />
                   </div>
 
                   <div>
                     <Label>X.com</Label>
-                    <Input type="text" value="https://x.com/PimjoHQ" />
+                    <Input type="text" value="https://x.com/Kopeg" />
                   </div>
 
                   <div>
                     <Label>LinkedIn</Label>
                     <Input
                       type="text"
-                      value="https://www.linkedin.com/company/pimjo"
+                      value="https://www.linkedin.com/company/kopeg"
                     />
                   </div>
 
                   <div>
                     <Label>Instagram</Label>
-                    <Input type="text" value="https://instagram.com/PimjoHQ" />
+                    <Input type="text" value="https://instagram.com/Kopeg" />
                   </div>
                 </div>
               </div>
@@ -143,27 +143,27 @@ export default function UserInfoCard() {
                 <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
                   <div className="col-span-2 lg:col-span-1">
                     <Label>Nama Depan</Label>
-                    <Input type="text" value="Musharof" />
+                    <Input type="text" value="Admin" />
                   </div>
 
                   <div className="col-span-2 lg:col-span-1">
                     <Label>Nama Belakang</Label>
-                    <Input type="text" value="Chowdhury" />
+                    <Input type="text" value="Kopeg" />
                   </div>
 
                   <div className="col-span-2 lg:col-span-1">
                     <Label>Alamat Email</Label>
-                    <Input type="text" value="randomuser@pimjo.com" />
+                    <Input type="text" value="adminkopeg@gmail.com" />
                   </div>
 
                   <div className="col-span-2 lg:col-span-1">
                     <Label>Telepon</Label>
-                    <Input type="text" value="+09 363 398 46" />
+                    <Input type="text" value="+62 895 1234 5678" />
                   </div>
 
                   <div className="col-span-2">
                     <Label>Bio</Label>
-                    <Input type="text" value="Manajer Tim" />
+                    <Input type="text" value="Administrator" />
                   </div>
                 </div>
               </div>
