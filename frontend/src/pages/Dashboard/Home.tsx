@@ -32,24 +32,22 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
 
   const fetchDashboard = async (tahun: string | number, bulan: string | number) => {
-    setLoading(true);
-    try {
-      const periode = `${tahun}-${monthOptions[+bulan - 1].label}`;
-      const res = await apiGet(`/api/dashboard?periode=${periode}`);
-      if (!res.ok) throw new Error(`Gagal fetch: ${res.status}`);
-      const json = await res.json();
-      setDashboardData(json);
-      setAlertMsg(`Analisis untuk periode ${monthOptions[+bulan - 1].label} ${tahun} berhasil dimuat`);
-      setShowAlert(true);
-      setTimeout(() => setShowAlert(false), 4000);
-    } catch (error) {
-      console.error("Gagal memuat dashboard:", error);
-      setAlertMsg("Gagal memuat data analisis. Pastikan periode tersedia.");
-      setShowAlert(true);
-    } finally {
-      setLoading(false);
-    }
-  };
+  setLoading(true);
+  try {
+    const periode = `${tahun}-${monthOptions[+bulan - 1].label}`;
+    const json = await apiGet(`/api/dashboard?periode=${periode}`);
+    setDashboardData(json);
+    setAlertMsg(`Analisis untuk periode ${monthOptions[+bulan - 1].label} ${tahun} berhasil dimuat`);
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 4000);
+  } catch (error) {
+    console.error("Gagal memuat dashboard:", error);
+    setAlertMsg("Gagal memuat data analisis. Pastikan periode tersedia.");
+    setShowAlert(true);
+  } finally {
+    setLoading(false);
+  }
+};
 
   const handleFilter = () => fetchDashboard(tahun, bulan);
 
