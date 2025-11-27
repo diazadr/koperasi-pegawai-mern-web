@@ -19,3 +19,5 @@ createRoot(document.getElementById("root")!).render(
     </BrowserRouter>
   </StrictMode>
 );
+
+console.log("ENV BACKEND:", import.meta.env.VITE_BACKEND_URL)
