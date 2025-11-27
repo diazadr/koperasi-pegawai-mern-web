@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import NotFound from "./pages/OtherPage/NotFound";
 import UserProfiles from "./pages/UserProfiles";
 import AppLayout from "./layout/AppLayout";
@@ -16,13 +16,11 @@ import LandingPage from "./pages/LandingPage";
 
 export default function App() {
   return (
-    <Router>
+    <>
       <ScrollToTop />
       <Routes>
-        {/* Halaman landing di root */}
         <Route index path="/" element={<LandingPage />} />
 
-        {/* Halaman admin */}
         <Route element={<AppLayout />}>
           <Route path="/dashboard" element={<Home />} />
           <Route path="/data/pembelian" element={<Pembelian />} />
@@ -35,9 +33,8 @@ export default function App() {
           <Route path="/profile" element={<UserProfiles />} />
         </Route>
 
-        {/* Not Found */}
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </Router>
+    </>
   );
 }
