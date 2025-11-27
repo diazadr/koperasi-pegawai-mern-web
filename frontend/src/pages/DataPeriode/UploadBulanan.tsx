@@ -62,10 +62,10 @@ const UploadBulanan: React.FC = () => {
 
     try {
       setLoading(true);
-      const res = await fetch("/api/upload-bulanan", {
-        method: "POST",
-        body: formData,
-      });
+const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/upload-bulanan`, {
+  method: "POST",
+  body: formData,
+});
       const data = await res.json();
 
       if (res.ok) {

@@ -6,10 +6,11 @@ import Label from "../../components/form/Label";
 import Select from "../../components/form/Select";
 import Input from "../../components/form/input/InputField";
 import Alert from "../../components/ui/alert/Alert";
+import { apiGet, apiDelete } from "../../lib/api";
 
 const monthOptions = [
-  "Januari","Februari","Maret","April","Mei","Juni",
-  "Juli","Agustus","September","Oktober","November","Desember"
+  "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+  "Juli", "Agustus", "September", "Oktober", "November", "Desember"
 ].map((m) => ({ value: m, label: m }));
 
 const sortOptions = [
@@ -61,7 +62,7 @@ export default function Retur() {
     setLoading(true);
     try {
       const params = new URLSearchParams({ periode: `${tahun}-${bulan}` });
-      const res = await fetch(`/api/retur?${params.toString()}`);
+      const res = await apiGet(`/api/retur?${params.toString()}`);
       const json = await res.json();
       setData(json);
       setFilteredData(json);
@@ -122,7 +123,7 @@ export default function Retur() {
     if (!confirm(`Yakin ingin menghapus semua data retur periode ${bulan} ${tahun}?`)) return;
     try {
       const params = new URLSearchParams({ periode: `${tahun}-${bulan}` });
-      await fetch(`/api/retur?${params.toString()}`, { method: "DELETE" });
+      await apiDelete(`/api/retur?${params.toString()}`);
       setData([]);
       setFilteredData([]);
       setAlertMsg(`Data retur periode ${bulan} ${tahun} berhasil dihapus.`);

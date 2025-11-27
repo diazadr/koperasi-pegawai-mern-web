@@ -4,6 +4,7 @@ import ComponentCard from "../../components/common/ComponentCard";
 import BasicTableOne from "../../components/tables/BasicTables/BasicTableOne";
 import Alert from "../../components/ui/alert/Alert";
 import Badge from "../../components/ui/badge/Badge";
+import { apiGet, apiDelete } from "../../lib/api";  // ← TAMBAHKAN INI
 
 export default function PeriodeList() {
   const [data, setData] = useState<any[]>([]);
@@ -12,21 +13,12 @@ export default function PeriodeList() {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMsg, setAlertMsg] = useState("");
 
-  // 🔄 Ambil daftar periode lengkap dengan status tabel
+  // 🔄 Ambil daftar periode
   const fetchPeriode = async () => {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch("/api/upload-bulanan/periode/list");
-      if (!res.ok) throw new Error("Gagal mengambil daftar periode");
-      const json = await res.json();
-
-      // Contoh data response di-backend bisa disesuaikan:
-      // [
-      //   { periode: "Januari", pembelian: true, penjualan: true, retur: false, stokopname: true },
-      //   { periode: "Februari", pembelian: false, penjualan: true, retur: true, stokopname: false },
-      // ]
-
+      const json = await apiGet("/api/upload-bulanan/periode/list");
       setData(json);
     } catch (err: any) {
       setError(err.message);
@@ -40,27 +32,25 @@ export default function PeriodeList() {
   }, []);
 
   // 🗑️ Hapus data satu periode
-const handleDeletePeriode = async (periode: string) => {
-  if (!confirm(`Yakin ingin menghapus semua data periode ${periode}?`)) return;
-  try {
-    const params = new URLSearchParams({ periode });
-    await Promise.all([
-      fetch(`/api/pembelian?${params.toString()}`, { method: "DELETE" }),
-      fetch(`/api/penjualan?${params.toString()}`, { method: "DELETE" }),
-      fetch(`/api/retur?${params.toString()}`, { method: "DELETE" }),
-      fetch(`/api/stok_opname?${params.toString()}`, { method: "DELETE" }), // ✅ ini diperbaiki
-    ]);
-    setAlertMsg(`Data periode ${periode} berhasil dihapus.`);
-    setShowAlert(true);
-    setTimeout(() => setShowAlert(false), 4000);
-    fetchPeriode();
-  } catch {
-    setError(`Gagal menghapus data periode ${periode}`);
-  }
-};
+  const handleDeletePeriode = async (periode: string) => {
+    if (!confirm(`Yakin ingin menghapus semua data periode ${periode}?`)) return;
+    try {
+      const params = new URLSearchParams({ periode });
+      await Promise.all([
+        apiDelete(`/api/pembelian?${params.toString()}`),
+        apiDelete(`/api/penjualan?${params.toString()}`),
+        apiDelete(`/api/retur?${params.toString()}`),
+        apiDelete(`/api/stok_opname?${params.toString()}`),
+      ]);
+      setAlertMsg(`Data periode ${periode} berhasil dihapus.`);
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 4000);
+      fetchPeriode();
+    } catch {
+      setError(`Gagal menghapus data periode ${periode}`);
+    }
+  };
 
-
-  // 🎨 Komponen Badge status
   const StatusBadge = ({ exists }: { exists: boolean }) =>
     exists ? (
       <Badge variant="solid" color="success">Ada</Badge>

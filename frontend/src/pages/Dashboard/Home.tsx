@@ -12,6 +12,7 @@ import Input from "../../components/form/input/InputField";
 import Alert from "../../components/ui/alert/Alert";
 import PrediksiBarangTerlarisBulan from "../../components/ecommerce/Prediction";
 import PrediksiBarangTerlarisTahunan from "../../components/ecommerce/PredictionYear";
+import { apiGet } from "../../lib/api";
 
 const monthOptions = [
   "Januari", "Februari", "Maret", "April", "Mei", "Juni",
@@ -34,7 +35,7 @@ export default function Home() {
     setLoading(true);
     try {
       const periode = `${tahun}-${monthOptions[+bulan - 1].label}`;
-      const res = await fetch(`/api/dashboard?periode=${periode}`);
+      const res = await apiGet(`/api/dashboard?periode=${periode}`);
       if (!res.ok) throw new Error(`Gagal fetch: ${res.status}`);
       const json = await res.json();
       setDashboardData(json);
@@ -115,49 +116,49 @@ export default function Home() {
         </div>
       )}
 
-    {dashboardData && (
-  <div className="grid grid-cols-12 gap-4 md:gap-6 mt-6">
+      {dashboardData && (
+        <div className="grid grid-cols-12 gap-4 md:gap-6 mt-6">
 
-    <div className="col-span-12">
-      <EcommerceMetrics data={dashboardData} />
-    </div>
+          <div className="col-span-12">
+            <EcommerceMetrics data={dashboardData} />
+          </div>
 
-    <div className="col-span-12">
-      <MonthlySalesChart data={dashboardData} />
-    </div>
+          <div className="col-span-12">
+            <MonthlySalesChart data={dashboardData} />
+          </div>
 
-    <div className="col-span-12">
-      <MonthlyTarget data={dashboardData} />
-    </div>
+          <div className="col-span-12">
+            <MonthlyTarget data={dashboardData} />
+          </div>
 
-    <div className="col-span-12">
-      <StatisticsChart data={dashboardData} />
-    </div>
+          <div className="col-span-12">
+            <StatisticsChart data={dashboardData} />
+          </div>
 
-    <div className="col-span-12">
-      <RecentOrders data={dashboardData} />
-    </div>
+          <div className="col-span-12">
+            <RecentOrders data={dashboardData} />
+          </div>
 
-    {dashboardData?.prediksi?.bulanBerikutnya?.length > 0 && (
-      <div className="col-span-12">
-        <PrediksiBarangTerlarisBulan
-          data={dashboardData}
-          periode={`${monthOptions[+bulan - 1].label} ${tahun}`}
-        />
-      </div>
-    )}
+          {dashboardData?.prediksi?.bulanBerikutnya?.length > 0 && (
+            <div className="col-span-12">
+              <PrediksiBarangTerlarisBulan
+                data={dashboardData}
+                periode={`${monthOptions[+bulan - 1].label} ${tahun}`}
+              />
+            </div>
+          )}
 
-    {dashboardData?.prediksi && (
-      <div className="col-span-12">
-        <PrediksiBarangTerlarisTahunan
-          data={dashboardData.prediksi}
-          periode={`${monthOptions[+bulan - 1].label} ${tahun}`}
-        />
-      </div>
-    )}
+          {dashboardData?.prediksi && (
+            <div className="col-span-12">
+              <PrediksiBarangTerlarisTahunan
+                data={dashboardData.prediksi}
+                periode={`${monthOptions[+bulan - 1].label} ${tahun}`}
+              />
+            </div>
+          )}
 
-  </div>
-)}
+        </div>
+      )}
 
     </>
   );

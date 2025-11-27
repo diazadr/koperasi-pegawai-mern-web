@@ -6,6 +6,7 @@ import Label from "../../components/form/Label";
 import Select from "../../components/form/Select";
 import Input from "../../components/form/input/InputField";
 import Alert from "../../components/ui/alert/Alert";
+import { apiGet, apiDelete } from "../../lib/api";  // ← TAMBAHKAN INI
 
 
 interface StokOpnameItem {
@@ -55,31 +56,30 @@ export default function StokOpname() {
   );
 
   // 🔄 Ambil data stok_opname
-const handleFetch = async () => {
-  if (!bulan || !tahun) {
-    setError("Pilih bulan dan isi tahun terlebih dahulu!");
-    setData([]);
-    return;
-  }
+  const handleFetch = async () => {
+    if (!bulan || !tahun) {
+      setError("Pilih bulan dan isi tahun terlebih dahulu!");
+      setData([]);
+      return;
+    }
 
-  // Temukan nama bulan dari label
-  const bulanLabel = monthOptions.find((m) => m.value === bulan)?.label;
-  const periode = `${tahun}-${bulanLabel}`;
+    // Temukan nama bulan dari label
+    const bulanLabel = monthOptions.find((m) => m.value === bulan)?.label;
+    const periode = `${tahun}-${bulanLabel}`;
 
-  setError("");
-  setLoading(true);
-  try {
-    const params = new URLSearchParams({ periode });
-    const res = await fetch(`/api/stok_opname?${params.toString()}`);
-    const json = await res.json();
-    setData(json);
-    setFilteredData(json);
-  } catch {
-    setError("Gagal mengambil data stok opname");
-  } finally {
-    setLoading(false);
-  }
-};
+    setError("");
+    setLoading(true);
+    try {
+      const params = new URLSearchParams({ periode });
+     const json = await apiGet(`/api/stok_opname?${params.toString()}`);
+      setData(json);
+      setFilteredData(json);
+    } catch {
+      setError("Gagal mengambil data stok opname");
+    } finally {
+      setLoading(false);
+    }
+  };
 
 
   // 🔽 Sorting
@@ -126,7 +126,7 @@ const handleFetch = async () => {
     if (!confirm(`Yakin ingin menghapus semua data stok opname periode ${bulan}-${tahun}?`)) return;
     try {
       const params = new URLSearchParams({ periode: `${tahun}-${bulan}` });
-      await fetch(`/api/stok_opname?${params.toString()}`, { method: "DELETE" });
+      await apiDelete(`/api/stok_opname?${params.toString()}`);
       setData([]);
       setFilteredData([]);
       setAlertMsg(`Data stok opname periode ${bulan}-${tahun} berhasil dihapus.`);

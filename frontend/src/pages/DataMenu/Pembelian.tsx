@@ -7,6 +7,7 @@ import Select from "../../components/form/Select";
 import Alert from "../../components/ui/alert/Alert";
 import { Modal } from "../../components/ui/modal";
 import { useModal } from "../../hooks/useModal";
+import { apiGet, apiDelete, apiPost } from "../../lib/api";
 
 import OriginalInput from "../../components/form/input/InputField";
 import OriginalButton from "../../components/ui/button/Button";
@@ -28,8 +29,8 @@ export interface InputProps {
 }
 
 const monthOptions = [
-  "Januari","Februari","Maret","April","Mei","Juni",
-  "Juli","Agustus","September","Oktober","November","Desember"
+  "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+  "Juli", "Agustus", "September", "Oktober", "November", "Desember"
 ].map((m) => ({ value: m, label: m }));
 
 const sortOptions = [
@@ -74,37 +75,37 @@ export default function Pembelian() {
   const [saving, setSaving] = useState(false);
 
   // 🔄 Fetch data
-  const handleFetch = async () => {
-    if (!bulan || !tahun) {
-      setError("Pilih bulan dan isi tahun terlebih dahulu!");
-      setData([]);
-      return;
-    }
-    setError("");
-    setLoading(true);
-    try {
-      const params = new URLSearchParams({ periode: `${tahun}-${bulan}` });
-      const res = await fetch(`/api/pembelian?${params.toString()}`);
-      const json = await res.json();
-      setData(json);
-      setFilteredData(json);
-    } catch {
-      setError("Gagal mengambil data pembelian");
-    } finally {
-      setLoading(false);
-    }
-  };
+ const handleFetch = async () => {
+  if (!bulan || !tahun) {
+    setError("Pilih bulan dan isi tahun terlebih dahulu!");
+    setData([]);
+    return;
+  }
+  setError("");
+  setLoading(true);
+  try {
+    const params = new URLSearchParams({ periode: `${tahun}-${bulan}` });
+    const json = await apiGet(`/api/pembelian?${params.toString()}`);
+    setData(json);
+    setFilteredData(json);
+  } catch {
+    setError("Gagal mengambil data pembelian");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   // 🔽 Sorting
   useEffect(() => {
     let sorted = [...data];
     switch (sortBy) {
-      case "nama_asc": sorted.sort((a,b)=>a.nama_item.localeCompare(b.nama_item)); break;
-      case "nama_desc": sorted.sort((a,b)=>b.nama_item.localeCompare(a.nama_item)); break;
-      case "stok_desc": sorted.sort((a,b)=>b.jumlah - a.jumlah); break;
-      case "stok_asc": sorted.sort((a,b)=>a.jumlah - b.jumlah); break;
-      case "harga_desc": sorted.sort((a,b)=>b.total_harga - a.total_harga); break;
-      case "harga_asc": sorted.sort((a,b)=>a.total_harga - b.total_harga); break;
+      case "nama_asc": sorted.sort((a, b) => a.nama_item.localeCompare(b.nama_item)); break;
+      case "nama_desc": sorted.sort((a, b) => b.nama_item.localeCompare(a.nama_item)); break;
+      case "stok_desc": sorted.sort((a, b) => b.jumlah - a.jumlah); break;
+      case "stok_asc": sorted.sort((a, b) => a.jumlah - b.jumlah); break;
+      case "harga_desc": sorted.sort((a, b) => b.total_harga - a.total_harga); break;
+      case "harga_asc": sorted.sort((a, b) => a.total_harga - b.total_harga); break;
     }
     setFilteredData(sorted);
     setCurrentPage(1);
@@ -133,7 +134,7 @@ export default function Pembelian() {
     if (!confirm(`Yakin ingin menghapus semua data pembelian periode ${bulan} ${tahun}?`)) return;
     try {
       const params = new URLSearchParams({ periode: `${tahun}-${bulan}` });
-      await fetch(`/api/pembelian?${params.toString()}`, { method: "DELETE" });
+      await apiDelete(`/api/pembelian?${params.toString()}`);
       setData([]);
       setFilteredData([]);
       setAlertMsg(`Data pembelian periode ${bulan} ${tahun} berhasil dihapus.`);
@@ -149,42 +150,37 @@ export default function Pembelian() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    if (!bulan || !tahun) {
-      alert("Isi bulan dan tahun terlebih dahulu!");
-      return;
-    }
+const handleSubmit = async (e: any) => {
+  e.preventDefault();
+  if (!bulan || !tahun) {
+    alert("Isi bulan dan tahun terlebih dahulu!");
+    return;
+  }
 
-    const periode = `${tahun}-${bulan}`;
-    setSaving(true);
-    try {
-      const res = await fetch("/api/pembelian", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, periode }),
-      });
+  const periode = `${tahun}-${bulan}`;
+  setSaving(true);
+  try {
+    await apiPost("/api/pembelian", { ...form, periode });
+    closeModal();
+    setForm({
+      kode_item: "",
+      nama_item: "",
+      jenis: "",
+      jumlah: "",
+      satuan: "",
+      total_harga: "",
+    });
+    handleFetch();
+    setAlertMsg("Data pembelian berhasil ditambahkan.");
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 4000);
+  } catch {
+    alert("Terjadi kesalahan saat menyimpan data.");
+  } finally {
+    setSaving(false);
+  }
+};
 
-      if (!res.ok) throw new Error("Gagal menyimpan data");
-      closeModal();
-      setForm({
-        kode_item: "",
-        nama_item: "",
-        jenis: "",
-        jumlah: "",
-        satuan: "",
-        total_harga: "",
-      });
-      handleFetch();
-      setAlertMsg("Data pembelian berhasil ditambahkan.");
-      setShowAlert(true);
-      setTimeout(() => setShowAlert(false), 4000);
-    } catch {
-      alert("Terjadi kesalahan saat menyimpan data.");
-    } finally {
-      setSaving(false);
-    }
-  };
 
   return (
     <>
@@ -204,11 +200,11 @@ export default function Pembelian() {
           </div>
           <div>
             <Label>Tahun</Label>
-            <Input type="number" placeholder="2025" value={tahun} onChange={(e)=>setTahun(e.target.value)} className="w-28"/>
+            <Input type="number" placeholder="2025" value={tahun} onChange={(e) => setTahun(e.target.value)} className="w-28" />
           </div>
           <div>
             <Label>Urutkan</Label>
-            <Select options={sortOptions} placeholder="Pilih Urutan" onChange={setSortBy} className="w-48"/>
+            <Select options={sortOptions} placeholder="Pilih Urutan" onChange={setSortBy} className="w-48" />
           </div>
           <button onClick={handleFetch} disabled={loading} className="px-5 py-2 rounded-lg bg-brand-500 text-white hover:bg-brand-600 transition disabled:opacity-50">
             {loading ? "Memuat..." : "Tampilkan Data"}
@@ -250,14 +246,14 @@ export default function Pembelian() {
           {/* 📄 Pagination */}
           {filteredData.length > 0 && (
             <div className="flex justify-center mt-4 gap-2">
-              <button onClick={() => setCurrentPage((p)=>Math.max(p-1,1))} disabled={currentPage===1}
+              <button onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))} disabled={currentPage === 1}
                 className="px-3 py-1 border rounded bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white disabled:opacity-50">
                 ← Prev
               </button>
               <span className="px-3 py-1 text-sm text-gray-700 dark:text-gray-300">
                 Halaman {currentPage} dari {totalPages}
               </span>
-              <button onClick={() => setCurrentPage((p)=>Math.min(p+1,totalPages))} disabled={currentPage===totalPages}
+              <button onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))} disabled={currentPage === totalPages}
                 className="px-3 py-1 border rounded bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white disabled:opacity-50">
                 Next →
               </button>

@@ -9,6 +9,7 @@ import { Modal } from "../../components/ui/modal";
 import { useModal } from "../../hooks/useModal";
 import OriginalInput from "../../components/form/input/InputField";
 import OriginalButton from "../../components/ui/button/Button";
+import { apiGet, apiDelete, apiPost } from "../../lib/api";
 import type { InputHTMLAttributes, ButtonHTMLAttributes } from "react";
 const Input = OriginalInput as React.FC<InputHTMLAttributes<HTMLInputElement>>;
 const Button = OriginalButton as React.FC<
@@ -63,26 +64,25 @@ export default function Penjualan() {
   });
   const [saving, setSaving] = useState(false);
 
-  const handleFetch = async () => {
-    if (!bulan || !tahun) {
-      setError("Pilih bulan dan isi tahun terlebih dahulu!");
-      setData([]);
-      return;
-    }
-    setError("");
-    setLoading(true);
-    try {
-      const params = new URLSearchParams({ periode: `${tahun}-${bulan}` });
-      const res = await fetch(`/api/penjualan?${params.toString()}`);
-      const json = await res.json();
-      setData(json);
-      setFilteredData(json);
-    } catch {
-      setError("Gagal mengambil data penjualan");
-    } finally {
-      setLoading(false);
-    }
-  };
+const handleFetch = async () => {
+  if (!bulan || !tahun) {
+    setError("Pilih bulan dan isi tahun terlebih dahulu!");
+    setData([]);
+    return;
+  }
+  setError("");
+  setLoading(true);
+  try {
+    const params = new URLSearchParams({ periode: `${tahun}-${bulan}` });
+    const json = await apiGet(`/api/penjualan?${params.toString()}`);
+    setData(json);
+    setFilteredData(json);
+  } catch {
+    setError("Gagal mengambil data penjualan");
+  } finally {
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
     let sorted = [...data];
@@ -119,7 +119,7 @@ export default function Penjualan() {
     if (!confirm(`Yakin ingin menghapus semua data penjualan periode ${bulan} ${tahun}?`)) return;
     try {
       const params = new URLSearchParams({ periode: `${tahun}-${bulan}` });
-      await fetch(`/api/penjualan?${params.toString()}`, { method: "DELETE" });
+      await apiDelete(`/api/penjualan?${params.toString()}`);
       setData([]);
       setFilteredData([]);
       setAlertMsg(`Data penjualan periode ${bulan} ${tahun} berhasil dihapus.`);
@@ -134,43 +134,38 @@ export default function Penjualan() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    if (!bulan || !tahun) {
-      alert("Isi bulan dan tahun terlebih dahulu!");
-      return;
-    }
+const handleSubmit = async (e: any) => {
+  e.preventDefault();
+  if (!bulan || !tahun) {
+    alert("Isi bulan dan tahun terlebih dahulu!");
+    return;
+  }
 
-    const periode = `${tahun}-${bulan}`;
-    setSaving(true);
-    try {
-      const res = await fetch("/api/penjualan", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, periode }),
-      });
+  const periode = `${tahun}-${bulan}`;
+  setSaving(true);
+  try {
+    await apiPost("/api/penjualan", { ...form, periode });
+    closeModal();
+    setForm({
+      kode_item: "",
+      nama_item: "",
+      merek: "",
+      jenis: "",
+      jumlah: "",
+      satuan: "",
+      total_harga: "",
+    });
+    handleFetch();
+    setAlertMsg("Data penjualan berhasil ditambahkan.");
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 4000);
+  } catch {
+    alert("Terjadi kesalahan saat menyimpan data.");
+  } finally {
+    setSaving(false);
+  }
+};
 
-      if (!res.ok) throw new Error("Gagal menyimpan data");
-      closeModal();
-      setForm({
-        kode_item: "",
-        nama_item: "",
-        merek: "",
-        jenis: "",
-        jumlah: "",
-        satuan: "",
-        total_harga: "",
-      });
-      handleFetch();
-      setAlertMsg("Data penjualan berhasil ditambahkan.");
-      setShowAlert(true);
-      setTimeout(() => setShowAlert(false), 4000);
-    } catch {
-      alert("Terjadi kesalahan saat menyimpan data.");
-    } finally {
-      setSaving(false);
-    }
-  };
 
   return (
     <>
