@@ -4,6 +4,13 @@ import cors from 'cors'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 import connectDB from './config/db.js'
 
+import pembelianRoutes from './routes/pembelianRoutes.js'
+import penjualanRoutes from './routes/penjualanRoutes.js'
+import returRoutes from './routes/returRoutes.js'
+import stokOpnameRoutes from './routes/stokOpnameRoutes.js'
+import uploadBulananRoutes from './routes/uploadBulananRoutes.js'
+import dashboardRoutes from './routes/dashboardRoutes.js';
+
 dotenv.config()
 connectDB()
 
