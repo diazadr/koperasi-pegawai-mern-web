@@ -62,8 +62,7 @@ export default function Retur() {
     setLoading(true);
     try {
       const params = new URLSearchParams({ periode: `${tahun}-${bulan}` });
-      const res = await apiGet(`/api/retur?${params.toString()}`);
-      const json = await res.json();
+      const json = await apiGet(`/api/retur?${params.toString()}`);
       setData(json);
       setFilteredData(json);
     } catch {

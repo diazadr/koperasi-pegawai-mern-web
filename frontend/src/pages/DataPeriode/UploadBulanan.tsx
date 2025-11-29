@@ -188,7 +188,7 @@ const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/upload-bulanan`
             disabled={loading}
             className="px-6 py-3 rounded-lg bg-brand-500 text-white hover:bg-brand-600 transition disabled:opacity-50"
           >
-            {loading ? "Mengunggah..." : "Upload Sekarang"}
+            {loading ? "Tunggu 15-30 detik… Server sedang bangun..." : "Upload Sekarang"}
           </button>
         </div>
 

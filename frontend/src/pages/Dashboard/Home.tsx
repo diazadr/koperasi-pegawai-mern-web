@@ -53,7 +53,7 @@ export default function Home() {
 
   const handleExportExcel = () => {
     const periode = `${tahun}-${monthOptions[+bulan - 1].label}`;
-    window.open(`/api/dashboard/export-excel?periode=${periode}`, "_blank");
+    window.open(`${import.meta.env.VITE_BACKEND_URL}/api/dashboard/export-excel?periode=${periode}`, "_blank");
   };
 
   return (
