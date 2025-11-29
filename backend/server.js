@@ -20,6 +20,7 @@ const allowedOrigins = [
   "http://localhost:3000",
   "https://koperasi-pegawai-mern-web.vercel.app",
   "https://koperasi-pegawai-mern-web.onrender.com",
+  "https://kelompok8.jejakcahayanusantara.com",
 ];
 
 // CORS
