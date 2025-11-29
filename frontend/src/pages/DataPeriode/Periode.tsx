@@ -72,11 +72,12 @@ export default function PeriodeList() {
       )}
 
       <ComponentCard title="Daftar Periode Upload Bulanan">
-        {loading ? (
-          <div className="text-gray-500 dark:text-gray-400 py-10 text-center">
-            Memuat data...
-          </div>
-        ) : error ? (
+       {loading ? (
+  <div className="text-gray-500 dark:text-gray-400 py-10 text-center">
+    Tunggu 15-30 detik… server sedang bangun
+  </div>
+) : error ? (
+
           <div className="text-red-500 py-6 text-center">{error}</div>
         ) : data.length === 0 ? (
           <div className="text-gray-500 dark:text-gray-400 py-10 text-center">

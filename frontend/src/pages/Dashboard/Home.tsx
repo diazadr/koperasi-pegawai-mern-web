@@ -91,7 +91,7 @@ export default function Home() {
             disabled={loading}
             className="px-5 py-2 rounded-lg bg-brand-500 text-white hover:bg-brand-600 transition disabled:opacity-50"
           >
-            {loading ? "Memuat..." : "Tampilkan Analisis"}
+            {loading ? "Tunggu 15-30 detik… Server sedang bangun..." : "Tampilkan Analisis"}
           </button>
 
           <button

@@ -182,7 +182,7 @@ export default function StokOpname() {
             disabled={loading}
             className="px-5 py-2 rounded-lg bg-brand-500 text-white hover:bg-brand-600 transition disabled:opacity-50"
           >
-            {loading ? "Memuat..." : "Tampilkan Data"}
+            {loading ? "Tunggu 15-30 detik… server sedang bangun..." : "Tampilkan Data"}
           </button>
           <button
             onClick={handleDeletePeriode}
@@ -197,7 +197,7 @@ export default function StokOpname() {
 
       {data.length === 0 ? (
         <div className="text-gray-500 dark:text-gray-400 text-center py-10">
-          {loading ? "Memuat data..." : "Belum ada data untuk periode ini."}
+          {loading ? "Tunggu 15-30 detik… server sedang bangun..." : "Belum ada data untuk periode ini."}
         </div>
       ) : (
         <div className="mt-6">
